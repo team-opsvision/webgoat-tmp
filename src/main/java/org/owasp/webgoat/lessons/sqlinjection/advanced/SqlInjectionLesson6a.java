@@ -51,9 +51,11 @@ public class SqlInjectionLesson6a implements AssignmentEndpoint {
     String query = "";
     try (Connection connection = dataSource.getConnection()) {
       boolean usedUnion = this.unionQueryChecker(accountName);
-      query = "SELECT * FROM user_data WHERE last_name = '" + accountName + "'";
+      query = "SELECT * FROM user_data WHERE last_name = ?";
+      java.sql.PreparedStatement stmt = connection.prepareStatement(query);
+      stmt.setString(1, accountName);
 
-      return executeSqlInjection(connection, query, usedUnion);
+      return executeSqlInjection(connection, stmt, usedUnion);
     } catch (Exception e) {
       return failed(this)
           .output(this.getClass().getName() + " : " + e.getMessage() + YOUR_QUERY_WAS + query)
