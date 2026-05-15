@@ -14,11 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import java.security.SecureRandom;
 
 @RestController
 public class ImageServlet {
 
-  public static final int PINCODE = new Random().nextInt(10000);
+  public static final int PINCODE = new SecureRandom().nextInt(10000);
 
   @RequestMapping(
       method = {GET, POST},
