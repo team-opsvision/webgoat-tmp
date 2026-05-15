@@ -46,11 +46,34 @@ public class Servers {
     List<Server> servers = new ArrayList<>();
 
     try (var connection = dataSource.getConnection()) {
+      String allowedColumn;
+      switch (column.toLowerCase()) {
+        case "id":
+          allowedColumn = "id";
+          break;
+        case "hostname":
+          allowedColumn = "hostname";
+          break;
+        case "ip":
+          allowedColumn = "ip";
+          break;
+        case "mac":
+          allowedColumn = "mac";
+          break;
+        case "status":
+          allowedColumn = "status";
+          break;
+        case "description":
+          allowedColumn = "description";
+          break;
+        default:
+          allowedColumn = "id";
+      }
       try (var statement =
           connection.prepareStatement(
               "select id, hostname, ip, mac, status, description from SERVERS where status <> 'out"
                   + " of order' order by "
-                  + column)) {
+                  + allowedColumn)) {
         try (var rs = statement.executeQuery()) {
           while (rs.next()) {
             Server server =
