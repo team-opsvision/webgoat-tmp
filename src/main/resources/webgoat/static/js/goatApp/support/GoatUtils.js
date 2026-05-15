@@ -45,7 +45,7 @@ define(['jquery',
                 displayButton: function(id, show) {
                     if ($('#' + id)) {
                         if (show) {
-                            $('#' + id).show();
+                            $("html").find('#' + id).show();
                         } else {
 
                         }
