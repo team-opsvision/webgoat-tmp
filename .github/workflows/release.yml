@@ -79,7 +79,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: "Build and push WebGoat"
-        uses: docker/build-push-action@v6.18.0
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
         with:
           context: ./
           file: ./Dockerfile
@@ -92,7 +92,7 @@ jobs:
             webgoat_version=${{ env.WEBGOAT_MAVEN_VERSION }}
 
       - name: "Build and push WebGoat desktop"
-        uses: docker/build-push-action@v6.18.0
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83
         with:
           context: ./
           file: ./Dockerfile_desktop
@@ -123,7 +123,7 @@ jobs:
           mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}-SNAPSHOT versions:commit
 
       - name: Push the changes to new branch
-        uses: devops-infra/action-commit-push@v0.11.4
+        uses: devops-infra/action-commit-push@e6a24fad602d1f92e46432c89a7e0c7fdd45d62d
         with:
             github_token: "${{ secrets.GITHUB_TOKEN }}"
             add_timestamp: true
